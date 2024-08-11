@@ -52,6 +52,7 @@ export default function App() {
 }
 
 
+// navbar
 function NavBar(){
   return (
     <nav className="nav-bar">
@@ -70,7 +71,6 @@ function Logo() {
     </div>
   )
 }
-
 function Search() {
   const [query, setQuery] = useState('');
   return(
@@ -80,7 +80,6 @@ function Search() {
     </div>
   )
 }
-
 function NumResult(){
   return(
     <p className="search-results">
@@ -88,14 +87,16 @@ function NumResult(){
     </p>
   )
 }
+// end navbar
 
 
 
-
+// main
 function Main(){
+  
   const [animes, setAnimes] = useState(animesData);
   const [selectedAnime, setSelectedAnime] = useState(animes[0]);
-
+  
   function handleSelectedAnime(id) {
     const newAnime = animes.filter((anime) => anime.mal_id === id);
     setSelectedAnime(newAnime[0]);
@@ -107,19 +108,19 @@ function Main(){
         <ListBox animes={animes} onSelectedAnime={handleSelectedAnime}/>
         <SelectedBox selectedAnime={selectedAnime}/>
       </main>
-  )
+  );
 }
 
-function ListBox(animes, onSelectedAnime){
+function ListBox({animes, onSelectedAnime}){
   const [isOpen1, setIsOpen1] = useState(true);
-  
+
   return(
     <div className="box">
-        <button className="btn-toggle" onClick={() => setIsOpen1((open) => !open)}>
-          {isOpen1 ? '–' : '+'}
-        </button>
+          <button className="btn-toggle" onClick={() => setIsOpen1((open) => !open)}>
+            {isOpen1 ? '–' : '+'}
+          </button>
           {isOpen1 && (
-          <ul className="list list-anime">
+            <ul className="list list-anime">
               {animes?.map((anime) => (
                 <li key={anime.mal_id} onClick={() => onSelectedAnime(anime.mal_id)}>
                   <img src={anime.image} alt={`${anime.title} cover`} />
@@ -131,23 +132,23 @@ function ListBox(animes, onSelectedAnime){
                   </div>
                 </li>
               ))}
-          </ul>
-      )}
-    </div>
+            </ul>
+          )}
+        </div>
   )
 }
 
-function SelectedBox(selectedAnime){
+function SelectedBox({selectedAnime}){
   const [isOpen2, setIsOpen2] = useState(true);
 
-  return (
+  return(
     <div className="box">
-      <button className="btn-toggle" onClick={() => setIsOpen2((open) => !open)}>
+          <button className="btn-toggle" onClick={() => setIsOpen2((open) => !open)}>
             {isOpen2 ? '–' : '+'}
-      </button>
-        {isOpen2 && (
-          <div className="details">
-            <header>
+          </button>
+          {isOpen2 && (
+            <div className="details">
+              <header>
                 <img src={selectedAnime.image} alt={`${selectedAnime.title} cover`} />
                 <div className="details-overview">
                   <h2>{selectedAnime.title}</h2>
@@ -155,14 +156,19 @@ function SelectedBox(selectedAnime){
                     {selectedAnime.year} &bull; {selectedAnime.score}
                   </p>
                 </div>
-            </header>
-            <section>
+              </header>
+              <section>
                 <p>
                   <em>{selectedAnime.synopsis}</em>
                 </p>
-            </section>
-          </div>
-        )}
-    </div>
+              </section>
+            </div>
+          )}
+        </div>
   )
 }
+
+
+
+
+// end main
